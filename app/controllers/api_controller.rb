@@ -1,5 +1,6 @@
 require_relative 'application_controller.rb'
 require "active_support/all"
+require 'json'
 class ApiController < ApplicationController
 
   get '/api/send_message' do
@@ -17,9 +18,14 @@ class ApiController < ApplicationController
     else
       data = {status: 400, description: "Your message could not be added. Please check chat parameters and try again."}
     end
-    #data.to_json
-    content_type 'text/xml'
-    data.to_xml
+
+    if params["content_type"] == "json"
+      content_type :json
+      data.to_json
+    else
+      content_type 'text/xml'
+      data.to_xml
+    end
   end
 
   get '/api/retrieve_messages' do
@@ -38,8 +44,13 @@ class ApiController < ApplicationController
     else
       data = {status: 400, description: "Your chat history could not be found. Please check parameters and try again."}
     end
-    content_type 'text/xml'
-    data.to_xml
+    if params["content_type"] == "json"
+      content_type :json
+      data.to_json
+    else
+      content_type 'text/xml'
+      data.to_xml
+    end
   end
 
   def valid_retrieve_message_params
