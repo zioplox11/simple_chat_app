@@ -1,5 +1,6 @@
 require './config/environment'
 
+run Sinatra::Application
 use Rack::MethodOverride
 run ApplicationController
 use UsersController
