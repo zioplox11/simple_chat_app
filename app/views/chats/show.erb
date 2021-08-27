@@ -1,0 +1,34 @@
+<p><strong>Back to all chats <a href="/chats">CLICK HERE</a></strong><p>
+
+<chat>
+    <p>Subject: <%= @chat.subject %><br>
+    Unique Identifier: <%= @chat.uuid %><br>
+    Created At: <%= @chat.created_at %><br></p>
+    <p>Chat participants:</br>
+    <% @chat.unique_users.each do |user| %>
+    	<user>
+          <%= user.username %><br>
+        </user>
+    <% end %>
+    </p>
+
+    <% @chat.messages.visible.each do |message| %>
+      <p><strong><%= message.user.username %>: </strong>
+      	<%= message.body %><br>
+      	(Posted At: <%= message.created_at %>)
+      </p>
+    <% end %>
+</chat>
+
+<% chat_path = "/chats/" + @chat.id.to_s %>
+<form method="POST" action=<%=chat_path%>>
+<p>
+<label for="message_body">Message Body:</label>
+<input type="text" name="message_body">
+</p>
+
+<p>
+<input name="user_id" type="hidden" value=<%=@current_user_id%>>
+<input type="submit" value="submit">
+</p>
+

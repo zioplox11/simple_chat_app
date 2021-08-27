@@ -1,0 +1,21 @@
+<h1>The wonderous chats of <%=current_user.username%></h1>
+
+<p><strong>Start a new chat <a href="/chats/new">HERE</a></strong><p>
+
+<% @chats.each do |chat| %>
+    <chat>
+        <p>Chat Subject: <strong><%= chat.subject %></strong><br>
+        Created At: <%= chat.created_at %><br>
+        Unique Identifier: <%= chat.uuid %></p>
+        <p>Chat participants:</br>
+        <% chat.unique_users.each do |user| %>
+        	<user>
+	          <%= user.username %><br>
+	        </user>
+        <% end %></p>
+        Last Message: <%= chat.messages.visible.last.body %><br>
+        Sent By: <strong><%= chat.messages.visible.last.user.username %></strong><br>
+        <% chat_path = "/chats/" + chat.id.to_s %>
+        <p>Add a new message <a href=<%=chat_path%>>HERE</a><p>
+    </chat>
+<% end %>

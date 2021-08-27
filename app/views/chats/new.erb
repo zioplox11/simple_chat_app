@@ -1,0 +1,22 @@
+<h1>Start a new chat, <%=current_user.username%>!</h1>
+
+<form method="POST" action="/chats/new">
+<p>
+<label for="subject">Subject:</label>
+<input type="text" name="subject">
+</p>
+
+<p>
+<label for="message_body">First Message:</label>
+<input type="text" name="message_body">
+</p>
+
+<p>
+<label for="usernames">Recipients (separate by a comma):</label>
+<input type="text" name="usernames">
+</p>
+
+<p>
+<input type="submit" value="submit">
+<input name="user_id" type="hidden" value=<%=@current_user_id%>>
+</p>
